@@ -28,12 +28,6 @@ class calculator(QMainWindow, Ui_back):
         self.mul.clicked.connect(self.fcalculation)
         self.div.clicked.connect(self.fcalculation)
 
-        #click check??
-        #self.add.setCheckable(True)
-        #self.sub.setCheckable(True)
-        #self.mul.setCheckable(True)
-        #self.div.setCheckable(True)
-
         #equal button
         self.equal.clicked.connect(self.fequal)
 
@@ -54,57 +48,62 @@ class calculator(QMainWindow, Ui_back):
     def fcalculation(self):
         button = self.sender()
         self.result.setText(self.result.text() + button.text())
-        #button.setChecked(True)
 
-    """
+
+
     def calculation(self):
-        precedence = {'+': 1, '-': 1, '*': 2, '/': 2}
-
-        def notGreater(self, i):
-            if self.peek() == '(':
-                return False
-            a = precedence[i]
-            b = precedence[self.peek()]
-            if a <= b:
-                return True
-            else:
-                return False
-
+        importance = {'+': 1, '-': 1, '*': 2, '/': 2}
         ch = self.sender()
         self.stack = []
-        self.exp = ''
+        self.exp = []
 
-        def isempty(self):
-            if self.stack == []:
-                return True
-            else:
-                return False
 
-        for i in self.exp:
-            if ch == '(':
+
+        if ch in "012356789":
+            self.stack.push()
+        elif ch == '(':
+            self.stack.push()
+        elif ch == '+' or '-' or '*' or '/':
+            if self.stack.peek() == '(':
                 self.stack.push()
-            elif ch == '+' or '-' or '*' or '/':
-                if self.isempty() == 'True':
+            elif self.stack.peek.importance() > ch.importance():
+                self.stack.push()
+            elif self.stack.peek.importance() <= ch.importance():
+                ch = self.stack.peek.pop()
+                self.exp.push(ch)
+            elif self.stack.peek() == ')':
+                while self.stack.peek() != '(':
                     self.stack.push()
-                else:
-                    if self.notGreater() == 'True':
-                        self.exp.push()
-                    else:
-                        self.stack.push()
-            elif ch in "012345679":
-                self.exp.push()
-            elif ch == ')':
-                self.stack.push(self.exp)
-    """
+
+        if self.equal.clicked:
+            if "012345679" in self.exp:
+                self.stack.push()
+            right = self.stack.pop()
+            left = self.stack.pop()
+            answer = 0
+
+            if self.exp.pop() == '+':
+                answer = left + right
+            if self.exp.pop() == '-':
+                answer = left - right
+            if self.exp.pop() == '*':
+                answer = left * right
+            if self.exp.pop() == '/':
+                answer = left / right
+
+            self.stack.push(answer)
 
 
-    def fequal(self):
-        text = self.result.text()
+
+
+    def fequal(self, stack):
+        self.stack = self.result.text()
         try:
-            answer = eval(text)
-            self.result.setText(str(answer))
+            self.result.setText(self.calculation.stack)
         except:
             self.result.setText("ERROR")
+
+
 
 
     def fc(self):
