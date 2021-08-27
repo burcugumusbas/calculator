@@ -105,7 +105,6 @@ class calculator(QMainWindow, Ui_back):
 
 
 
-
     def fc(self):
         self.result.setText(None)
 
