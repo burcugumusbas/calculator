@@ -39,7 +39,6 @@ class calculator(QMainWindow, Ui_back):
         self.closepar.clicked.connect(self.fpar)
 
 
-
     def fpress(self):
         button  = self.sender()
         self.result.setText(self.result.text() + button.text())
